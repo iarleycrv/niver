@@ -1,186 +1,220 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Mensagem para Fonseca</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mensagem para Fonseca</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Comic Neue', cursive;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(180deg, #ffe4e9, #ffeef3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 10px;
+      text-align: center;
+    }
 
-        body, html {
-            width: 100%;
-            height: 100%;
-            font-family: 'Comic Neue', cursive;
-            background-color: #ffe4e9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            color: #d62852;
-            text-align: center;
-        }
+    h1 {
+      font-size: 34px;
+      margin-bottom: 8px;
+      animation: fadeIn 1.5s ease;
+    }
 
-        .fullscreen {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap: 20px;
-        }
+    p {
+      font-size: 20px;
+      margin-bottom: 20px;
+      animation: fadeIn 1.5s ease;
+    }
 
-        .hidden {
-            display: none;
-        }
+    #login {
+      width: 100%;
+      max-width: 360px;
+      animation: fadeIn 2s ease;
+    }
 
-        button {
-            padding: 15px 30px;
-            margin: 10px;
-            background-color: #ff4d6d;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 22px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+    input {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: 1px solid #f9b6c4;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 16px;
+    }
 
-        button:hover {
-            transform: scale(1.05);
-        }
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 10px;
+      background-color: #f75c7a;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.3s;
+    }
 
-        input {
-            padding: 12px;
-            margin: 8px;
-            border: 1px solid #ff8fb1;
-            border-radius: 8px;
-            font-size: 20px;
-            text-align: center;
-            width: 80%;
-        }
+    button:hover {
+      background-color: #ff7a97;
+    }
 
-        .message-box {
-            background-color: #ff8fb1;
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px;
-            animation: blink 1s infinite;
-        }
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #c74b64;
+      animation: fadeIn 2s ease;
+    }
 
-        .image-box {
-            margin-top: 20px;
-        }
+    .hidden {
+      display: none;
+    }
 
-        .image-box img {
-            border: 5px solid #ff8fb1;
-            border-radius: 15px;
-            max-width: 90%;
-            box-shadow: 0 0 10px #ff4d6d;
-        }
+    .fullscreen {
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
+    }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-    </style>
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
-    <div id="inicio" class="fullscreen">
-        <h2>Você quer receber essa mensagem?</h2>
-        <button onclick="resposta('nao')">Não</button>
-        <button onclick="resposta('sim')">Sim</button>
+  <!-- Página 1 - Login -->
+  <div id="login" class="fullscreen">
+    <h1>Olá, Isabela!</h1>
+    <p>Tenho algo muito especial pra te mostrar...</p>
+
+    <form id="loginForm" onsubmit="event.preventDefault(); validarLogin();">
+      <input type="text" id="usuario" placeholder="Usuário" required>
+      <input type="password" id="senha" placeholder="Senha" required>
+      <button type="submit">🔒 Entrar</button>
+    </form>
+  </div>
+
+  <!-- Página 2 - Pergunta -->
+  <div id="inicio" class="fullscreen hidden">
+    <h2 id="pergunta">Você quer continuar vendo essa mensagem?</h2>
+    <button onclick="respostaSim()">Sim</button>
+  </div>
+
+  <!-- Página 3 - Formulário -->
+  <div id="formulario" class="fullscreen hidden">
+    <h2>Preencha suas informações:</h2>
+    <input type="text" id="nome" placeholder="Nome" required>
+    <input type="number" id="idade" placeholder="Idade" required>
+    <input type="number" id="beleza" placeholder="Nível de beleza (0 a 10)" min="0" required>
+    <button onclick="verificarFormulario()">Enviar</button>
+  </div>
+
+  <!-- Página 4 - Música -->
+  <div id="musica" class="fullscreen hidden">
+    <h2>Refrão de "Um Amor Puro" - Djavan</h2>
+    <div class="fullscreen">
+      <iframe src="https://www.youtube.com/embed/U8nS--XLqMs?autoplay=1" allow="autoplay"></iframe>
     </div>
+    <button onclick="pularMusica()">Pular Música</button>
+  </div>
 
-    <div id="formulario" class="fullscreen hidden">
-        <h2>Preencha suas informações:</h2>
-        <input type="text" id="nome" placeholder="Nome" required>
-        <input type="number" id="idade" placeholder="Idade" required>
-        <input type="number" id="beleza" placeholder="Nível de beleza (0 a 10)" min="0" required>
-        <button onclick="verificarFormulario()">Enviar</button>
-    </div>
+  <!-- Página 5 - Imagem 1 -->
+  <div id="imagem1" class="fullscreen hidden">
+    <img src="https://files.fm/thumb_show.php?i=h633bp9snc" alt="Imagem 1" style="width: 100%; height: auto;">
+    <button onclick="mostrarImagem2()">Próxima</button>
+  </div>
 
-    <div id="senha" class="fullscreen hidden">
-        <h2>Digite a senha para continuar:</h2>
-        <input type="password" id="senhaInput" placeholder="Senha" required>
-        <button onclick="verificarSenha()">Verificar</button>
-    </div>
+  <!-- Página 6 - Imagem 2 -->
+  <div id="imagem2" class="fullscreen hidden">
+    <img src="https://files.fm/thumb_show.php?i=pgmfukxfy9" alt="Imagem 2" style="width: 100%; height: auto;">
+  </div>
 
-    <div id="mensagem" class="fullscreen hidden">
-        <div class="message-box">
-            <h2>Feliz aniversário, meu amooooooooor!</h2>
-            <p>Quero te desejar tudo de melhor nessa nova fase: muita alegria, saúde, amor (pq tá difícil pra você, hein) e conquistas. Você merece o mundo, porque é uma amiga incrível, sempre presente e cheia de energia boa. Sou muito grato por ter você na minha vida e por compartilhar tantos momentos especiais ao meu lado. Obrigado por tudo! Saiba que você é muito importante pra mim e quero passar muitos aniversários ao seu lado, comemorando e aproveitando juntos. Lembre-se que agora você é de maior e já pode ser presa, então vê se não faz nenhuma besteira! Você é quase perfeita, só faltava ser rubro-negra pra gente poder ir pro Barradão juntos! Apesar de você ter quase me falido, eu te amo demais!</p>
-            <div class="image-box">
-                <img src="https://i.ibb.co/YBCfjWDy/IMG-5366.jpg" alt="Foto nossa com borda de flores">
-            </div>
-        </div>
-    </div>
+  <footer>
+    Feito com carinho por alguém que te ama muito
+  </footer>
 
-    <script>
-        let tentativas = 0;
-        const dicas = [
-            "Faço todo dia",
-            "Está relacionado a você e não consigo parar",
-            "A junção do pronome pessoal oblíquo átono da segunda pessoa do singular com a flexão do verbo amar"
-        ];
+  <script>
+    let etapaSim = 0;
+    const mensagensSim = [
+        "Você tem certeza?",
+        "Absoluta?",
+        "Mesmo?",
+        "Nem está curiosa?",
+        "Última chance de desistir!",
+        "Tem certeza MESMO?",
+        "Agora sim, vamos lá!"
+    ];
 
-        function resposta(opcao) {
-            if (opcao === 'sim') {
-                document.getElementById('inicio').classList.add('hidden');
-                document.getElementById('formulario').classList.remove('hidden');
-            } else {
-                alert("Erro - Você não tem querer, eu que fiz o código!");
-            }
+    // Função de login
+    function validarLogin() {
+        const senha = document.getElementById("senha").value.toLowerCase();
+        if (senha === "te amar") {
+            document.getElementById("login").classList.add("hidden");
+            document.getElementById("inicio").classList.remove("hidden");
+        } else {
+            alert("Senha incorreta. Tenta lembrar do que eu mais faço.");
         }
+    }
 
-        function verificarFormulario() {
-            const nome = document.getElementById('nome').value.toLowerCase();
-            const idade = parseInt(document.getElementById('idade').value);
-            const beleza = parseInt(document.getElementById('beleza').value);
-
-            if (nome !== "isabela") {
-                alert("Se você não é Isabela, esse texto não é pra você");
-            } else if (idade !== 18) {
-                alert("Está mentindo a idade? Mentira é pecado, vigia Isabela.");
-            } else if (beleza < 10) {
-                alert("Você está mentindo na beleza.");
-            } else if (beleza > 10) {
-                alert("Nota 10 para sua beleza é pouco.");
-                document.getElementById('formulario').classList.add('hidden');
-                document.getElementById('senha').classList.remove('hidden');
-            } else {
-                document.getElementById('formulario').classList.add('hidden');
-                document.getElementById('senha').classList.remove('hidden');
-            }
+    // Função para responder sim
+    function respostaSim() {
+        const pergunta = document.getElementById("pergunta");
+        if (etapaSim < mensagensSim.length - 1) {
+            pergunta.innerText = mensagensSim[etapaSim];
+            etapaSim++;
+        } else {
+            document.getElementById("inicio").classList.add("hidden");
+            document.getElementById("formulario").classList.remove("hidden");
         }
+    }
 
-        function verificarSenha() {
-            const senha = document.getElementById('senhaInput').value.toLowerCase();
+    // Função para verificar o formulário
+    function verificarFormulario() {
+        const nome = document.getElementById("nome").value.toLowerCase();
+        const idade = parseInt(document.getElementById("idade").value);
+        const beleza = parseInt(document.getElementById("beleza").value);
 
-            if (senha === "te amar") {
-                mostrarMensagem();
-            } else {
-                if (tentativas < dicas.length) {
-                    alert("Dica: " + dicas[tentativas]);
-                    tentativas++;
-                } else {
-                    alert("Tu é muito burra, né?");
-                    mostrarMensagem();
-                }
-            }
+        if (nome !== "isabela") {
+            alert("Se você não é Isabela, esse texto não é pra você");
+        } else if (idade !== 18) {
+            alert("Está mentindo a idade? Mentira é pecado, vigia Isabela.");
+        } else if (beleza < 10) {
+            alert("Você está mentindo na beleza.");
+        } else {
+            document.getElementById("formulario").classList.add("hidden");
+            document.getElementById("musica").classList.remove("hidden");
         }
+    }
 
-        function mostrarMensagem() {
-            document.getElementById('senha').classList.add('hidden');
-            document.getElementById('mensagem').classList.remove('hidden');
-        }
-    </script>
+    // Função para pular a música
+    function pularMusica() {
+        document.getElementById("musica").classList.add("hidden");
+        document.getElementById("imagem1").classList.remove("hidden");
+    }
+
+    // Função para mostrar a próxima imagem
+    function mostrarImagem2() {
+        document.getElementById("imagem1").classList.add("hidden");
+        document.getElementById("imagem2").classList.remove("hidden");
+    }
+  </script>
 </body>
 </html>
