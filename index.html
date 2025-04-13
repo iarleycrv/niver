@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mensagem para Fonseca</title>
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
   <style>
@@ -96,7 +96,7 @@
     .video-container {
       position: relative;
       width: 100%;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      padding-bottom: 56.25%;
       height: 0;
       margin-bottom: 20px;
     }
@@ -118,9 +118,9 @@
 </head>
 <body>
 
-  <!-- Página 1 - Login (apenas senha) -->
+  <!-- Página 1 - Login com apenas senha -->
   <div id="login" class="fullscreen">
-    <h1>Bem-vinda! Digite a senha para continuar:</h1>
+    <h1>Faça login para continuar</h1>
     <input type="password" id="senha" placeholder="Senha" required>
     <button onclick="verificarSenha()">Entrar</button>
   </div>
@@ -158,6 +158,7 @@
   <!-- Página 6 - Imagem 2 -->
   <div id="imagem2" class="fullscreen hidden">
     <img src="https://files.fm/thumb_show.php?i=pgmfukxfy9" alt="Imagem 2" style="width: 100%; height: auto;">
+    <button onclick="mostrarPlaylist()">Finalizar</button>
   </div>
 
   <!-- Página 7 - Playlist -->
@@ -176,13 +177,13 @@
   <script>
     let etapaSim = 0;
     const mensagensSim = [
-        "Você tem certeza?",
-        "Absoluta?",
-        "Mesmo?",
-        "Nem está curiosa?",
-        "Última chance de desistir!",
-        "Tem certeza MESMO?",
-        "Agora sim, vamos lá!"
+      "Você tem certeza?",
+      "Absoluta?",
+      "Mesmo?",
+      "Nem está curiosa?",
+      "Última chance de desistir!",
+      "Tem certeza MESMO?",
+      "Agora sim, vamos lá!"
     ];
 
     function verificarSenha() {
@@ -231,6 +232,11 @@
     function mostrarImagem2() {
       document.getElementById("imagem1").classList.add("hidden");
       document.getElementById("imagem2").classList.remove("hidden");
+    }
+
+    function mostrarPlaylist() {
+      document.getElementById("imagem2").classList.add("hidden");
+      document.getElementById("playlist").classList.remove("hidden");
     }
   </script>
 </body>
