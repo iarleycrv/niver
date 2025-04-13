@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mensagem para Fonseca</title>
+  <title>Mensagem Especial</title>
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
   <style>
     * {
@@ -18,27 +18,36 @@
       background: linear-gradient(180deg, #ffe4e9, #ffeef3);
       display: flex;
       flex-direction: column;
-      justify-content: space-between; /* Isso garante que o rodapé fique embaixo */
-      padding: 30px 10px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0;
       text-align: center;
+      position: relative;
+      overflow: hidden; /* Impede a barra de rolagem */
+    }
+
+    h1, p {
+      animation: fadeIn 1.5s ease;
     }
 
     h1 {
       font-size: 34px;
       margin-bottom: 8px;
-      animation: fadeIn 1.5s ease;
     }
 
     p {
       font-size: 20px;
       margin-bottom: 20px;
-      animation: fadeIn 1.5s ease;
     }
 
     #login {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       width: 100%;
       max-width: 360px;
-      animation: fadeIn 2s ease;
+      z-index: 10;
     }
 
     input {
@@ -71,27 +80,26 @@
     footer {
       font-size: 14px;
       color: #c74b64;
-      margin-top: 30px;
       animation: fadeIn 2s ease;
       text-align: center;
-    }
-
-    .hidden {
-      display: none;
+      margin-top: 20px;
+      z-index: 10;
     }
 
     .fullscreen {
       width: 100%;
-      max-width: 360px;
-      margin: 0 auto;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      overflow: hidden;
     }
 
     iframe {
       width: 100%;
       height: 100%;
       border: none;
-      max-width: 100%;
-      height: 400px; /* Definindo uma altura fixa para o vídeo */
     }
 
     @keyframes fadeIn {
@@ -101,9 +109,13 @@
   </style>
 </head>
 <body>
+  <!-- Vídeo de fundo -->
+  <div class="fullscreen">
+    <iframe src="https://www.youtube.com/embed/U8nS--XLqMs?autoplay=1&loop=1&playlist=U8nS--XLqMs" allow="autoplay" frameborder="0"></iframe>
+  </div>
 
   <!-- Página 1 - Login -->
-  <div id="login" class="fullscreen">
+  <div id="login">
     <h1>Olá, Isabela!</h1>
     <p>Tenho algo muito especial pra te mostrar...</p>
 
@@ -114,108 +126,19 @@
     </form>
   </div>
 
-  <!-- Página 2 - Pergunta -->
-  <div id="inicio" class="fullscreen hidden">
-    <h2 id="pergunta">Você quer continuar vendo essa mensagem?</h2>
-    <button onclick="respostaSim()">Sim</button>
-  </div>
-
-  <!-- Página 3 - Formulário -->
-  <div id="formulario" class="fullscreen hidden">
-    <h2>Preencha suas informações:</h2>
-    <input type="text" id="nome" placeholder="Nome" required>
-    <input type="number" id="idade" placeholder="Idade" required>
-    <input type="number" id="beleza" placeholder="Nível de beleza (0 a 10)" min="0" required>
-    <button onclick="verificarFormulario()">Enviar</button>
-  </div>
-
-  <!-- Página 4 - Música -->
-  <div id="musica" class="fullscreen hidden">
-    <h2>Refrão de "Um Amor Puro" - Djavan</h2>
-    <div class="fullscreen">
-      <iframe src="https://www.youtube.com/embed/U8nS--XLqMs?autoplay=1" allow="autoplay"></iframe>
-    </div>
-    <button onclick="pularMusica()">Pular Música</button>
-  </div>
-
-  <!-- Página 5 - Imagem 1 -->
-  <div id="imagem1" class="fullscreen hidden">
-    <img src="https://files.fm/thumb_show.php?i=h633bp9snc" alt="Imagem 1" style="width: 100%; height: auto;">
-    <button onclick="mostrarImagem2()">Próxima</button>
-  </div>
-
-  <!-- Página 6 - Imagem 2 -->
-  <div id="imagem2" class="fullscreen hidden">
-    <img src="https://files.fm/thumb_show.php?i=pgmfukxfy9" alt="Imagem 2" style="width: 100%; height: auto;">
-  </div>
-
   <footer>
     Feito com carinho por alguém que te ama muito
   </footer>
 
   <script>
-    let etapaSim = 0;
-    const mensagensSim = [
-        "Você tem certeza?",
-        "Absoluta?",
-        "Mesmo?",
-        "Nem está curiosa?",
-        "Última chance de desistir!",
-        "Tem certeza MESMO?",
-        "Agora sim, vamos lá!"
-    ];
-
-    // Função de login
     function validarLogin() {
-        const senha = document.getElementById("senha").value.toLowerCase();
-        if (senha === "te amar") {
-            document.getElementById("login").classList.add("hidden");
-            document.getElementById("inicio").classList.remove("hidden");
-        } else {
-            alert("Senha incorreta. Tenta lembrar do que eu mais faço.");
-        }
-    }
-
-    // Função para responder sim
-    function respostaSim() {
-        const pergunta = document.getElementById("pergunta");
-        if (etapaSim < mensagensSim.length - 1) {
-            pergunta.innerText = mensagensSim[etapaSim];
-            etapaSim++;
-        } else {
-            document.getElementById("inicio").classList.add("hidden");
-            document.getElementById("formulario").classList.remove("hidden");
-        }
-    }
-
-    // Função para verificar o formulário
-    function verificarFormulario() {
-        const nome = document.getElementById("nome").value.toLowerCase();
-        const idade = parseInt(document.getElementById("idade").value);
-        const beleza = parseInt(document.getElementById("beleza").value);
-
-        if (nome !== "isabela") {
-            alert("Se você não é Isabela, esse texto não é pra você");
-        } else if (idade !== 18) {
-            alert("Está mentindo a idade? Mentira é pecado, vigia Isabela.");
-        } else if (beleza < 10) {
-            alert("Você está mentindo na beleza.");
-        } else {
-            document.getElementById("formulario").classList.add("hidden");
-            document.getElementById("musica").classList.remove("hidden");
-        }
-    }
-
-    // Função para pular a música
-    function pularMusica() {
-        document.getElementById("musica").classList.add("hidden");
-        document.getElementById("imagem1").classList.remove("hidden");
-    }
-
-    // Função para mostrar a próxima imagem
-    function mostrarImagem2() {
-        document.getElementById("imagem1").classList.add("hidden");
-        document.getElementById("imagem2").classList.remove("hidden");
+      const senha = document.getElementById("senha").value.toLowerCase();
+      if (senha === "te amar") {
+        // Remove a página de login e exibe o vídeo como fundo
+        document.getElementById("login").style.display = "none";
+      } else {
+        alert("Senha incorreta. Tenta lembrar do que eu mais faço.");
+      }
     }
   </script>
 </body>
