@@ -96,7 +96,7 @@
     .video-container {
       position: relative;
       width: 100%;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      padding-bottom: 56.25%;
       height: 0;
       margin-bottom: 20px;
     }
@@ -118,13 +118,12 @@
 </head>
 <body>
 
-  <!-- Página 1 - Login -->
+  <!-- Página 1 - Login (apenas senha) -->
   <div id="login" class="fullscreen">
     <h1>Olá, Isabela!</h1>
     <p>Tenho algo muito especial pra te mostrar...</p>
     <form id="loginForm" onsubmit="event.preventDefault(); validarLogin();">
-      <input type="text" id="usuario" placeholder="Usuário" required>
-      <input type="password" id="senha" placeholder="Senha" required>
+      <input type="password" id="senha" placeholder="Digite a senha" required>
       <button type="submit">🔒 Entrar</button>
     </form>
   </div>
