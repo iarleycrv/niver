@@ -137,7 +137,9 @@
       const senha = document.getElementById("senha").value.toLowerCase();
       if (senha === "te amar") {
         mostrarPagina("pagina2");
-        music.play();
+        music.play().catch(() => {
+          alert("Clique para permitir a música tocar!");
+        });
       } else {
         alert("Senha incorreta. Dica: é algo que eu faço todo dia.");
       }
