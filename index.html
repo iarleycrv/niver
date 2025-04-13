@@ -18,80 +18,71 @@
       background: linear-gradient(180deg, #ffe4e9, #ffeef3);
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      padding: 30px 10px;
       text-align: center;
+      padding: 30px 10px;
     }
 
-    h1 {
-      font-size: 34px;
-      margin-bottom: 8px;
+    h1, h2, p {
       animation: fadeIn 1.5s ease;
     }
 
-    p {
-      font-size: 20px;
-      margin-bottom: 20px;
-      animation: fadeIn 1.5s ease;
-    }
+    h1 { font-size: 34px; margin-bottom: 8px; }
+    h2 { font-size: 28px; margin-bottom: 16px; }
+    p  { font-size: 20px; margin-bottom: 20px; }
 
-    #login {
+    .fullscreen {
       width: 100%;
       max-width: 360px;
-      animation: fadeIn 2s ease;
-    }
-
-    input {
-      width: 100%;
-      padding: 15px;
-      margin: 10px 0;
-      border: 1px solid #f9b6c4;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 16px;
-    }
-
-    button {
-      width: 100%;
-      padding: 15px;
-      margin-top: 10px;
-      background-color: #f75c7a;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 18px;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background-color: #ff7a97;
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 14px;
-      color: #c74b64;
-      animation: fadeIn 2s ease;
     }
 
     .hidden {
       display: none;
     }
 
-    .fullscreen {
+    input, button {
       width: 100%;
-      max-width: 360px;
-      margin: 0 auto;
+      padding: 15px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    input {
+      border: 1px solid #f9b6c4;
+    }
+
+    button {
+      background-color: #f75c7a;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 18px;
+    }
+
+    button:hover {
+      background-color: #ff7a97;
     }
 
     iframe {
       width: 100%;
-      height: 0;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      aspect-ratio: 16/9;
       border: none;
-      position: relative;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    footer {
+      font-size: 14px;
+      color: #c74b64;
+      padding: 20px 0 0;
     }
 
     @keyframes fadeIn {
@@ -106,8 +97,7 @@
   <div id="login" class="fullscreen">
     <h1>Olá, Isabela!</h1>
     <p>Tenho algo muito especial pra te mostrar...</p>
-
-    <form id="loginForm" onsubmit="event.preventDefault(); validarLogin();">
+    <form onsubmit="event.preventDefault(); validarLogin();">
       <input type="text" id="usuario" placeholder="Usuário" required>
       <input type="password" id="senha" placeholder="Senha" required>
       <button type="submit">🔒 Entrar</button>
@@ -132,90 +122,85 @@
   <!-- Página 4 - Música -->
   <div id="musica" class="fullscreen hidden">
     <h2>Refrão de "Um Amor Puro" - Djavan</h2>
-    <div class="fullscreen">
-      <iframe src="https://www.youtube.com/embed/U8nS--XLqMs?autoplay=1" allow="autoplay"></iframe>
-    </div>
+    <iframe src="https://www.youtube.com/embed/U8nS--XLqMs?start=60" allow="autoplay"></iframe>
     <button onclick="pularMusica()">Pular Música</button>
   </div>
 
   <!-- Página 5 - Imagem 1 -->
   <div id="imagem1" class="fullscreen hidden">
-    <img src="https://files.fm/thumb_show.php?i=h633bp9snc" alt="Imagem 1" style="width: 100%; height: auto;">
+    <img src="https://files.fm/thumb_show.php?i=h633bp9snc" alt="Imagem 1">
     <button onclick="mostrarImagem2()">Próxima</button>
   </div>
 
   <!-- Página 6 - Imagem 2 -->
   <div id="imagem2" class="fullscreen hidden">
-    <img src="https://files.fm/thumb_show.php?i=pgmfukxfy9" alt="Imagem 2" style="width: 100%; height: auto;">
+    <img src="https://files.fm/thumb_show.php?i=pgmfukxfy9" alt="Imagem 2">
   </div>
 
-  <footer>
-    Feito com carinho por alguém que te ama muito
-  </footer>
+  <!-- Player de Música Romântica -->
+  <audio id="audioRomantico" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+
+  <footer>Feito com carinho por alguém que te ama muito</footer>
 
   <script>
     let etapaSim = 0;
     const mensagensSim = [
-        "Você tem certeza?",
-        "Absoluta?",
-        "Mesmo?",
-        "Nem está curiosa?",
-        "Última chance de desistir!",
-        "Tem certeza MESMO?",
-        "Agora sim, vamos lá!"
+      "Você tem certeza?",
+      "Absoluta?",
+      "Mesmo?",
+      "Nem está curiosa?",
+      "Última chance de desistir!",
+      "Tem certeza MESMO?",
+      "Agora sim, vamos lá!"
     ];
 
-    // Função de login
     function validarLogin() {
-        const senha = document.getElementById("senha").value.toLowerCase();
-        if (senha === "te amar") {
-            document.getElementById("login").classList.add("hidden");
-            document.getElementById("inicio").classList.remove("hidden");
-        } else {
-            alert("Senha incorreta. Tenta lembrar do que eu mais faço.");
-        }
+      const senha = document.getElementById("senha").value.toLowerCase();
+      if (senha === "te amar") {
+        document.getElementById("audioRomantico").play();
+        mostrar("login", "inicio");
+      } else {
+        alert("Senha incorreta. Tenta lembrar do que eu mais faço.");
+      }
     }
 
-    // Função para responder sim
     function respostaSim() {
-        const pergunta = document.getElementById("pergunta");
-        if (etapaSim < mensagensSim.length - 1) {
-            pergunta.innerText = mensagensSim[etapaSim];
-            etapaSim++;
-        } else {
-            document.getElementById("inicio").classList.add("hidden");
-            document.getElementById("formulario").classList.remove("hidden");
-        }
+      const pergunta = document.getElementById("pergunta");
+      if (etapaSim < mensagensSim.length - 1) {
+        pergunta.innerText = mensagensSim[etapaSim];
+        etapaSim++;
+      } else {
+        mostrar("inicio", "formulario");
+      }
     }
 
-    // Função para verificar o formulário
     function verificarFormulario() {
-        const nome = document.getElementById("nome").value.toLowerCase();
-        const idade = parseInt(document.getElementById("idade").value);
-        const beleza = parseInt(document.getElementById("beleza").value);
+      const nome = document.getElementById("nome").value.toLowerCase();
+      const idade = parseInt(document.getElementById("idade").value);
+      const beleza = parseInt(document.getElementById("beleza").value);
 
-        if (nome !== "isabela") {
-            alert("Se você não é Isabela, esse texto não é pra você");
-        } else if (idade !== 18) {
-            alert("Está mentindo a idade? Mentira é pecado, vigia Isabela.");
-        } else if (beleza < 10) {
-            alert("Você está mentindo na beleza.");
-        } else {
-            document.getElementById("formulario").classList.add("hidden");
-            document.getElementById("musica").classList.remove("hidden");
-        }
+      if (nome !== "isabela") {
+        alert("Se você não é Isabela, esse texto não é pra você");
+      } else if (idade !== 18) {
+        alert("Está mentindo a idade? Mentira é pecado, vigia Isabela.");
+      } else if (beleza < 10) {
+        alert("Você está mentindo na beleza.");
+      } else {
+        mostrar("formulario", "musica");
+      }
     }
 
-    // Função para pular a música
     function pularMusica() {
-        document.getElementById("musica").classList.add("hidden");
-        document.getElementById("imagem1").classList.remove("hidden");
+      mostrar("musica", "imagem1");
     }
 
-    // Função para mostrar a próxima imagem
     function mostrarImagem2() {
-        document.getElementById("imagem1").classList.add("hidden");
-        document.getElementById("imagem2").classList.remove("hidden");
+      mostrar("imagem1", "imagem2");
+    }
+
+    function mostrar(ocultarId, mostrarId) {
+      document.getElementById(ocultarId).classList.add("hidden");
+      document.getElementById(mostrarId).classList.remove("hidden");
     }
   </script>
 </body>
