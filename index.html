@@ -96,7 +96,7 @@
     .video-container {
       position: relative;
       width: 100%;
-      padding-bottom: 56.25%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
       height: 0;
       margin-bottom: 20px;
     }
@@ -118,12 +118,13 @@
 </head>
 <body>
 
-  <!-- Página 1 - Login (apenas senha) -->
+  <!-- Página 1 - Login -->
   <div id="login" class="fullscreen">
     <h1>Olá, Isabela!</h1>
     <p>Tenho algo muito especial pra te mostrar...</p>
     <form id="loginForm" onsubmit="event.preventDefault(); validarLogin();">
-      <input type="password" id="senha" placeholder="Digite a senha" required>
+      <input type="text" id="usuario" placeholder="Usuário" required>
+      <input type="password" id="senha" placeholder="Senha" required>
       <button type="submit">🔒 Entrar</button>
     </form>
   </div>
@@ -161,6 +162,14 @@
   <!-- Página 6 - Imagem 2 -->
   <div id="imagem2" class="fullscreen hidden">
     <img src="https://files.fm/thumb_show.php?i=pgmfukxfy9" alt="Imagem 2" style="width: 100%; height: auto;">
+  </div>
+
+  <!-- Página 7 - Playlist -->
+  <div id="playlist" class="fullscreen hidden">
+    <h2>Ouça a nossa Playlist Romântica</h2>
+    <button onclick="window.open('https://open.spotify.com/playlist/24K9SJCMB1mG17pqZAuKsE?si=zKmiTaqLTBWD_DzHaHjJmQ&pi=r181F7MVSwqnV', '_blank')">
+      Ouvir Playlist no Spotify
+    </button>
   </div>
 
   <footer>
