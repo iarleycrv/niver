@@ -13,15 +13,28 @@
       font-family: 'Comic Neue', cursive;
     }
 
-    body {
-      min-height: 100vh;
+    html, body {
+      height: 100%;
       background: linear-gradient(180deg, #ffe4e9, #ffeef3);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .fullscreen {
+      flex-grow: 1;
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 30px 10px;
-      text-align: center;
     }
 
     h1 {
@@ -30,16 +43,16 @@
       animation: fadeIn 1.5s ease;
     }
 
+    h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      animation: fadeIn 1.5s ease;
+    }
+
     p {
       font-size: 20px;
       margin-bottom: 20px;
       animation: fadeIn 1.5s ease;
-    }
-
-    #login {
-      width: 100%;
-      max-width: 360px;
-      animation: fadeIn 2s ease;
     }
 
     input {
@@ -70,23 +83,28 @@
     }
 
     footer {
-      margin-top: 30px;
       font-size: 14px;
       color: #c74b64;
-      animation: fadeIn 2s ease;
+      padding: 15px 0;
+      text-align: center;
     }
 
     .hidden {
       display: none;
     }
 
-    .fullscreen {
+    .video-container {
+      position: relative;
       width: 100%;
-      max-width: 360px;
-      margin: 0 auto;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      margin-bottom: 20px;
     }
 
-    iframe {
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       border: none;
@@ -96,37 +114,29 @@
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    .pagina {
-      display: none;
-    }
-
-    .ativa {
-      display: block;
-    }
   </style>
 </head>
 <body>
 
   <!-- Página 1 - Login -->
-  <div id="login" class="pagina ativa">
+  <div id="login" class="fullscreen">
     <h1>Olá, Isabela!</h1>
     <p>Tenho algo muito especial pra te mostrar...</p>
-
-    <form id="loginForm" onsubmit="event.preventDefault(); fazerLogin();">
+    <form id="loginForm" onsubmit="event.preventDefault(); validarLogin();">
+      <input type="text" id="usuario" placeholder="Usuário" required>
       <input type="password" id="senha" placeholder="Senha" required>
       <button type="submit">🔒 Entrar</button>
     </form>
   </div>
 
   <!-- Página 2 - Pergunta -->
-  <div id="inicio" class="pagina hidden">
+  <div id="inicio" class="fullscreen hidden">
     <h2 id="pergunta">Você quer continuar vendo essa mensagem?</h2>
     <button onclick="respostaSim()">Sim</button>
   </div>
 
   <!-- Página 3 - Formulário -->
-  <div id="formulario" class="pagina hidden">
+  <div id="formulario" class="fullscreen hidden">
     <h2>Preencha suas informações:</h2>
     <input type="text" id="nome" placeholder="Nome" required>
     <input type="number" id="idade" placeholder="Idade" required>
@@ -135,22 +145,22 @@
   </div>
 
   <!-- Página 4 - Música -->
-  <div id="musica" class="pagina hidden">
+  <div id="musica" class="fullscreen hidden">
     <h2>Refrão de "Um Amor Puro" - Djavan</h2>
-    <div class="fullscreen">
-      <iframe src="https://www.youtube.com/embed/U8nS--XLqMs?autoplay=1&loop=1" allow="autoplay; loop"></iframe>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/U8nS--XLqMs?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
     <button onclick="pularMusica()">Pular Música</button>
   </div>
 
   <!-- Página 5 - Imagem 1 -->
-  <div id="imagem1" class="pagina hidden">
+  <div id="imagem1" class="fullscreen hidden">
     <img src="https://files.fm/thumb_show.php?i=h633bp9snc" alt="Imagem 1" style="width: 100%; height: auto;">
     <button onclick="mostrarImagem2()">Próxima</button>
   </div>
 
   <!-- Página 6 - Imagem 2 -->
-  <div id="imagem2" class="pagina hidden">
+  <div id="imagem2" class="fullscreen hidden">
     <img src="https://files.fm/thumb_show.php?i=pgmfukxfy9" alt="Imagem 2" style="width: 100%; height: auto;">
   </div>
 
@@ -170,58 +180,52 @@
         "Agora sim, vamos lá!"
     ];
 
-    // Função para mostrar páginas
-    function mostrarPagina(id) {
-      document.querySelectorAll('.pagina').forEach(p => p.classList.remove('ativa'));
-      document.getElementById(id).classList.add('ativa');
+    function validarLogin() {
+      const senha = document.getElementById("senha").value.toLowerCase();
+      if (senha === "te amar") {
+        document.getElementById("login").classList.add("hidden");
+        document.getElementById("inicio").classList.remove("hidden");
+      } else {
+        alert("Senha incorreta. Tenta lembrar do que eu mais faço.");
+      }
     }
 
-    // Função de login
-    function fazerLogin() {
-        const senha = document.getElementById("senha").value.toLowerCase();
-        if (senha === "te amar") {
-            mostrarPagina("inicio");
-        } else {
-            alert("Senha incorreta. Tenta lembrar do que eu mais faço.");
-        }
-    }
-
-    // Função para responder sim
     function respostaSim() {
-        const pergunta = document.getElementById("pergunta");
-        if (etapaSim < mensagensSim.length - 1) {
-            pergunta.innerText = mensagensSim[etapaSim];
-            etapaSim++;
-        } else {
-            mostrarPagina("formulario");
-        }
+      const pergunta = document.getElementById("pergunta");
+      if (etapaSim < mensagensSim.length - 1) {
+        pergunta.innerText = mensagensSim[etapaSim];
+        etapaSim++;
+      } else {
+        document.getElementById("inicio").classList.add("hidden");
+        document.getElementById("formulario").classList.remove("hidden");
+      }
     }
 
-    // Função para verificar o formulário
     function verificarFormulario() {
-        const nome = document.getElementById("nome").value.toLowerCase();
-        const idade = parseInt(document.getElementById("idade").value);
-        const beleza = parseInt(document.getElementById("beleza").value);
+      const nome = document.getElementById("nome").value.toLowerCase();
+      const idade = parseInt(document.getElementById("idade").value);
+      const beleza = parseInt(document.getElementById("beleza").value);
 
-        if (nome !== "isabela") {
-            alert("Se você não é Isabela, esse texto não é pra você");
-        } else if (idade !== 18) {
-            alert("Está mentindo a idade? Mentira é pecado, vigia Isabela.");
-        } else if (beleza < 10) {
-            alert("Você está mentindo na beleza.");
-        } else {
-            mostrarPagina("musica");
-        }
+      if (nome !== "isabela") {
+        alert("Se você não é Isabela, esse texto não é pra você");
+      } else if (idade !== 18) {
+        alert("Está mentindo a idade? Mentira é pecado, vigia Isabela.");
+      } else if (beleza < 10) {
+        alert("Você está mentindo na beleza.");
+      } else {
+        document.getElementById("formulario").classList.add("hidden");
+        document.getElementById("musica").classList.remove("hidden");
+      }
     }
 
-    // Função para pular a música
     function pularMusica() {
-        mostrarPagina("imagem1");
+      document.getElementById("musica").classList.add("hidden");
+      document.getElementById("imagem1").classList.remove("hidden");
     }
 
-    // Função para mostrar a próxima imagem
     function mostrarImagem2() {
-        mostrarPagina("imagem2");
+      document.getElementById("imagem1").classList.add("hidden");
+      document.getElementById("imagem2").classList.remove("hidden");
     }
   </script>
 </body>
