@@ -78,8 +78,8 @@
 </head>
 <body>
 
-  <!-- Música tocando -->
-  <audio id="musica" src="https://cdn.pixabay.com/download/audio/2023/03/22/audio_07a99d6ac2.mp3?filename=romantic-piano-143437.mp3" loop></audio>
+  <!-- Música -->
+  <audio id="musica" src="https://ia902706.us.archive.org/31/items/djavan-um-amor-puro/Djavan%20-%20Um%20Amor%20Puro.mp3" loop></audio>
 
   <!-- Página 1 - Login -->
   <div id="pagina1" class="pagina ativa">
@@ -88,6 +88,13 @@
     <input type="text" id="usuario" placeholder="Usuário">
     <input type="password" id="senha" placeholder="Senha">
     <button onclick="fazerLogin()">Entrar</button>
+  </div>
+
+  <!-- Página 1.5 - Ativar música -->
+  <div id="paginaMusica" class="pagina">
+    <h2>Pronto pra começar?</h2>
+    <p>Toque no botão abaixo para ativar a música!</p>
+    <button onclick="ativarMusica()">Ativar Música</button>
   </div>
 
   <!-- Página 2 - Sim -->
@@ -136,13 +143,18 @@
     function fazerLogin() {
       const senha = document.getElementById("senha").value.toLowerCase();
       if (senha === "te amar") {
-        mostrarPagina("pagina2");
-        music.play().catch(() => {
-          alert("Clique para permitir a música tocar!");
-        });
+        mostrarPagina("paginaMusica");
       } else {
         alert("Senha incorreta. Dica: é algo que eu faço todo dia.");
       }
+    }
+
+    function ativarMusica() {
+      music.play().then(() => {
+        mostrarPagina("pagina2");
+      }).catch(() => {
+        alert("Clique novamente para ativar a música.");
+      });
     }
 
     function responderSim() {
