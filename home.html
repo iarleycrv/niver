@@ -82,6 +82,11 @@
       background-color: #ff7a97;
     }
 
+    button:hover img {
+      transform: scale(1.1);
+      transition: transform 0.3s ease;
+    }
+
     footer {
       font-size: 14px;
       color: #c74b64;
@@ -123,7 +128,7 @@
     <h1>Olá, Isabela!</h1>
     <p>Tenho algo muito especial pra te mostrar...</p>
     <form id="loginForm" onsubmit="event.preventDefault(); validarLogin();">
-      <input type="password" id="senha" placeholder="Digite a senha" required>
+      <input type="password" id="senha" placeholder="Senha" required>
       <button type="submit">🔒 Entrar</button>
     </form>
   </div>
@@ -161,9 +166,14 @@
   <!-- Página 6 - Imagem 2 + Playlist -->
   <div id="imagem2" class="fullscreen hidden">
     <img src="https://files.fm/thumb_show.php?i=pgmfukxfy9" alt="Imagem 2" style="width: 100%; height: auto;">
-    <button onclick="window.open('https://open.spotify.com/playlist/24K9SJCMB1mG17pqZAuKsE?si=zKmiTaqLTBWD_DzHaHjJmQ&pi=r181F7MVSwqnV', '_blank')">
-      Adicionar Playlist
-    </button>
+    <a href="https://open.spotify.com/playlist/24K9SJCMB1mG17pqZAuKsE?si=zKmiTaqLTBWD_DzHaHjJmQ&pi=r181F7MVSwqnV" 
+       target="_blank"
+       style="display: inline-block; margin-top: 20px; text-decoration: none;">
+      <button style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify" style="width: 24px; height: 24px;">
+        Adicionar Playlist
+      </button>
+    </a>
   </div>
 
   <footer>
