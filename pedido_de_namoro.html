@@ -3,152 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pedido</title>
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+  <title>Créditos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet" />
   <style>
     body {
-      background: linear-gradient(to bottom, #ffe6f0, #fff0f5);
+      margin: 0;
+      background: linear-gradient(180deg, #ffe4e9, #ffeef3);
       font-family: 'Comic Neue', cursive;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
-      margin: 0;
       overflow: hidden;
-      text-align: center;
+    }
+
+    .credits-container {
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+      overflow: hidden;
       position: relative;
     }
 
-    h1, p {
-      margin: 10px;
-      font-size: 20px;
-      z-index: 2;
-    }
-
-    .buttons {
-      margin-top: 30px;
-      display: flex;
-      gap: 20px;
-      z-index: 2;
-    }
-
-    button {
-      padding: 14px 24px;
-      border: none;
-      border-radius: 12px;
-      background-color: #ff5c8a;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      animation: float 2s infinite ease-in-out;
-      box-shadow: 0 0 10px rgba(255, 92, 138, 0.5);
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-      100% { transform: translateY(0); }
-    }
-
-    iframe {
-      display: none;
-    }
-
-    .decor {
+    .credits {
       position: absolute;
-      width: 30px;
-      height: 30px;
-      background: url('https://i.imgur.com/fn3oG6f.png') no-repeat center/contain;
-      animation: floatDecor 8s linear infinite;
-      opacity: 0.3;
+      bottom: -100%;
+      width: 100%;
+      text-align: center;
+      animation: scrollUp 40s ease-in-out forwards;
+      padding: 10px;
+      box-sizing: border-box;
     }
 
-    @keyframes floatDecor {
-      0% {
-        transform: translateY(100vh) scale(0.5) rotate(0deg);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh) scale(1.2) rotate(360deg);
-        opacity: 0;
-      }
+    .credits p {
+      font-size: 20px;
+      line-height: 1.6;
+      margin: 10px 0;
+      padding: 0 10px;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+
+    @keyframes scrollUp {
+      0% { bottom: -100%; }
+      100% { bottom: 100%; }
     }
   </style>
 </head>
 <body>
-
-  <h1 id="titulo">Imagine isso:</h1>
-  <p id="texto">A gente namorando, viajando, rindo à toa... Tá, parei. Mas seria engraçado, né? Ou não só engraçado...</p>
-
-  <div class="buttons">
-    <button id="sim">Sim</button>
-    <button id="nao">Não</button>
+  <div class="credits-container">
+    <div class="credits">
+      <p>Esse projeto foi feito com muito carinho por mim.</p>
+      <p>Deu um trabalhão, viu?</p>
+      <p>Eu revisei cada detalhe várias vezes...</p>
+      <p>Testei tudo, arrumei bugs, mudei cores, mudei fontes...</p>
+      <p>Coloquei cada pedacinho de amor que sinto por você aqui.</p>
+      <p>Queria algo que te emocionasse de verdade.</p>
+      <p>Talvez não tenha sido perfeito, mas foi de coração.</p>
+      <p>Espero que você tenha gostado de verdade.</p>
+      <p>Porque foi feito por alguém que te quer muito bem.</p>
+      <p>Com todo o carinho do mundo,</p>
+      <p>— Portugal</p>
+    </div>
   </div>
-
-  <iframe width="0" height="0" src="https://www.youtube.com/embed/SQFNSbw1T1M?autoplay=1&loop=1&playlist=SQFNSbw1T1M" frameborder="0" allow="autoplay"></iframe>
-
-  <script>
-    for (let i = 0; i < 25; i++) {
-      let decor = document.createElement("div");
-      decor.classList.add("decor");
-      decor.style.left = `${Math.random() * 100}%`;
-      decor.style.animationDuration = `${4 + Math.random() * 6}s`;
-      document.body.appendChild(decor);
-    }
-
-    const sim = document.getElementById("sim");
-    const nao = document.getElementById("nao");
-    const titulo = document.getElementById("titulo");
-    const texto = document.getElementById("texto");
-
-    let etapa = 0;
-    const mensagensErro = [
-      "Já pensou mesmo nisso ou só tá brincando?",
-      "Tá me iludindo, hein?",
-      "Se brincar demais, eu vou levar a sério!",
-      "Imagina se vira verdade mesmo?",
-      "Agora já comecei a sonhar acordado..."
-    ];
-
-    sim.addEventListener("click", () => {
-      if (etapa < mensagensErro.length) {
-        alert(mensagensErro[etapa]);
-        etapa++;
-        moverBotao();
-      } else {
-        alert("Agora já comecei a sonhar acordado...");
-        sim.style.display = "none";
-        nao.style.display = "none";
-        setTimeout(() => {
-          window.location.href = "home.html";
-        }, 1000);
-      }
-    });
-
-    nao.addEventListener("click", () => {
-      // Plan B: brincadeira leve após o “Não”
-      titulo.innerText = "Brincadeirinha!";
-      texto.innerText = "Mas confessa, você ficou nervosa só de imaginar?";
-      sim.style.display = "none";
-      nao.style.display = "none";
-    });
-
-    function moverBotao() {
-      const maxX = window.innerWidth - 120;
-      const maxY = window.innerHeight - 120;
-      const x = Math.floor(Math.random() * maxX * 0.8);
-      const y = Math.floor(Math.random() * maxY * 0.8);
-      sim.style.position = "absolute";
-      sim.style.left = `${x}px`;
-      sim.style.top = `${y}px`;
-    }
-    setTimeout(function() {
-    window.location.href = "creditos.html";
-  }, 4000); // redireciona após 4 segundos
-  </script>
 </body>
 </html>
