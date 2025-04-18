@@ -91,60 +91,60 @@
 
   <iframe width="0" height="0" src="https://www.youtube.com/embed/SQFNSbw1T1M?autoplay=1&loop=1&playlist=SQFNSbw1T1M" frameborder="0" allow="autoplay"></iframe>
 
- <script>
-  for (let i = 0; i < 25; i++) {
-    let decor = document.createElement("div");
-    decor.classList.add("decor");
-    decor.style.left = `${Math.random() * 100}%`;
-    decor.style.animationDuration = `${4 + Math.random() * 6}s`;
-    document.body.appendChild(decor);
-  }
+  <script>
+    for (let i = 0; i < 25; i++) {
+      let decor = document.createElement("div");
+      decor.classList.add("decor");
+      decor.style.left = `${Math.random() * 100}%`;
+      decor.style.animationDuration = `${4 + Math.random() * 6}s`;
+      document.body.appendChild(decor);
+    }
 
-  const sim = document.getElementById("sim");
-  const nao = document.getElementById("nao");
-  const titulo = document.getElementById("titulo");
-  const texto = document.getElementById("texto");
+    const sim = document.getElementById("sim");
+    const nao = document.getElementById("nao");
+    const titulo = document.getElementById("titulo");
+    const texto = document.getElementById("texto");
 
-  let etapa = 0;
-  const mensagensErro = [
-    "Já pensou mesmo nisso ou só tá brincando?",
-    "Tá me iludindo, hein?",
-    "Se brincar demais, eu vou levar a sério!",
-    "Imagina se vira verdade mesmo?",
-    "Agora já comecei a sonhar acordado..."
-  ];
+    let etapa = 0;
+    const mensagensErro = [
+      "Já pensou mesmo nisso ou só tá brincando?",
+      "Tá me iludindo, hein?",
+      "Se brincar demais, eu vou levar a sério!",
+      "Imagina se vira verdade mesmo?",
+      "Agora já comecei a sonhar acordado..."
+    ];
 
-  sim.addEventListener("click", () => {
-    if (etapa < mensagensErro.length) {
-      alert(mensagensErro[etapa]);
-      etapa++;
-      moverBotao();
-    } else {
-      alert("Agora já comecei a sonhar acordado...");
+    sim.addEventListener("click", () => {
+      if (etapa < mensagensErro.length) {
+        alert(mensagensErro[etapa]);
+        etapa++;
+        moverBotao();
+      } else {
+        alert("Agora já comecei a sonhar acordado...");
+        sim.style.display = "none";
+        nao.style.display = "none";
+        setTimeout(() => {
+          window.location.href = "creditos.html";
+        }, 2000);
+      }
+    });
+
+    nao.addEventListener("click", () => {
+      titulo.innerText = "Brincadeirinha!";
+      texto.innerText = "Mas confessa, você ficou nervosa só de imaginar?";
       sim.style.display = "none";
       nao.style.display = "none";
-      setTimeout(() => {
-        window.location.href = "creditos.html";
-      }, 3000); // redireciona 3 segundos após o último clique
+    });
+
+    function moverBotao() {
+      const maxX = window.innerWidth - 120;
+      const maxY = window.innerHeight - 120;
+      const x = Math.floor(Math.random() * maxX * 0.8);
+      const y = Math.floor(Math.random() * maxY * 0.8);
+      sim.style.position = "absolute";
+      sim.style.left = `${x}px`;
+      sim.style.top = `${y}px`;
     }
-  });
-
-  nao.addEventListener("click", () => {
-    titulo.innerText = "Brincadeirinha!";
-    texto.innerText = "Mas confessa, você ficou nervosa só de imaginar?";
-    sim.style.display = "none";
-    nao.style.display = "none";
-  });
-
-  function moverBotao() {
-    const maxX = window.innerWidth - 120;
-    const maxY = window.innerHeight - 120;
-    const x = Math.floor(Math.random() * maxX * 0.8);
-    const y = Math.floor(Math.random() * maxY * 0.8);
-    sim.style.position = "absolute";
-    sim.style.left = `${x}px`;
-    sim.style.top = `${y}px`;
-  }
-</script>
+  </script>
 </body>
 </html>
